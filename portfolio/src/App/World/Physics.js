@@ -40,12 +40,17 @@ export default class Physics {
     this.rigidBody.setTranslation(mesh.position);
     this.rigidBody.setRotation(mesh.quaternion);
 
+    mesh.geometry.computeBoundingBox();
+    console.log(mesh.geometry.boundingBox);
+
     // auto compute collider dimensions
 
+    // const colliderType = this.rapier.ColliderDesc.ball(
+    //     1
+    // );
+    
     const colliderType = this.rapier.ColliderDesc.cuboid(
-      mesh.scale.x / 2,
-      mesh.scale.y / 2,
-      mesh.scale.z / 2
+        0.5,0.5,0.5
     );
     this.world.createCollider(colliderType, this.rigidBody);
     this.meshMap.set(mesh, this.rigidBody);

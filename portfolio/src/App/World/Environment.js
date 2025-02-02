@@ -36,7 +36,7 @@ export default class Environment {
   }
   createMeshes(meshes){
     for (let i = 0; i < meshes; i++) {
-      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const geometry = new THREE.BoxGeometry(1,1,1);
       const material = new THREE.MeshStandardMaterial({ color: "#0073ff" });
       const cubeMesh = new THREE.Mesh(geometry, material);
       cubeMesh.position.x = Math.random() - 10 + 10;
