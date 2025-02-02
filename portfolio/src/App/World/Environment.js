@@ -23,14 +23,30 @@ export default class Environment {
     this.scene.add(this.directionalLight);
   }
   addMeshes() {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshStandardMaterial({ color: "#0073ff" });
-    this.cubeMesh = new THREE.Mesh(geometry, material);
-    this.cubeMesh.position.y = 10;
-    this.cubeMesh.rotation.x = 0.3;
-    this.cubeMesh.rotation.z = 0.3;
+    // const geometry = new THREE.BoxGeometry(1, 1, 1);
+    // const material = new THREE.MeshStandardMaterial({ color: "#0073ff" });
+    // this.cubeMesh = new THREE.Mesh(geometry, material);
+    // this.cubeMesh.position.y = 10;
+    // this.cubeMesh.rotation.x = 0.3;
+    // this.cubeMesh.rotation.z = 0.3;
 
-    this.scene.add(this.cubeMesh);
-    this.physics.add(this.cubeMesh);
+    // this.scene.add(this.cubeMesh);
+    // this.physics.add(this.cubeMesh);
+    this.createMeshes(20);
+  }
+  createMeshes(meshes){
+    for (let i = 0; i < meshes; i++) {
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshStandardMaterial({ color: "#0073ff" });
+      const cubeMesh = new THREE.Mesh(geometry, material);
+      cubeMesh.position.x = Math.random() - 10 + 10;
+      cubeMesh.position.y = Math.random() - 10 + 10;
+      cubeMesh.position.z = Math.random() - 10 + 10;
+
+      cubeMesh.rotation.x = 0.3;
+      cubeMesh.rotation.z = 0.3;
+      this.scene.add(cubeMesh);
+      this.physics.add(cubeMesh);
+    }
   }
 }
