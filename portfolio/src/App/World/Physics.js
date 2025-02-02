@@ -12,21 +12,22 @@ export default class Physics {
 
 
     import("@dimforge/rapier3d").then((RAPIER) => {
-      const gravity = { x: 0, y: -9.81, z: 0 };
+      const gravity = { x: 0, y: -19, z: 0 };
       this.world = new RAPIER.World(gravity);
       this.rapier=RAPIER
 
       // THREE
 
-      const groundGeometry = new THREE.BoxGeometry(10, 1, 10);
-      const groundMaterial = new THREE.MeshStandardMaterial({
-        color: "#ff8900",
+      const groundGeometry = new THREE.BoxGeometry(100, 1, 100);
+      const groundMaterial = new THREE.MeshPhongMaterial({
+        color: "#ffffff",
+        shininess: 100,
       });
       this.groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
       this.scene.add(this.groundMesh);
       const groundRigidBodyType = RAPIER.RigidBodyDesc.fixed();
       this.groundRigidBody = this.world.createRigidBody(groundRigidBodyType);
-      const groundColliderType = RAPIER.ColliderDesc.cuboid(5, 0.5, 5);
+      const groundColliderType = RAPIER.ColliderDesc.cuboid(50, 0.5, 50);
       this.world.createCollider(groundColliderType, this.groundRigidBody);
 
       this.rapierLoaded = true;
@@ -40,21 +41,30 @@ export default class Physics {
     this.rigidBody.setTranslation(mesh.position);
     this.rigidBody.setRotation(mesh.quaternion);
 
-    mesh.geometry.computeBoundingBox();
-    // const size=mesh.geometry.boundingBox
-    console.log(mesh.geometry.boundingBox);
-
-    // auto compute collider dimensions
-
-    // const colliderType = this.rapier.ColliderDesc.ball(
-    //     1
-    // );
-    
-    const colliderType = this.rapier.ColliderDesc.cuboid(
-        0.5,0.5,0.5
-    );
+    const dimensions=this.computeCuboidDimensions(mesh)
+    let colliderType
+    if(mesh.userData.type =='box'){
+        colliderType = this.rapier.ColliderDesc.cuboid(
+            dimensions.x/2,
+            dimensions.y/2,
+            dimensions.z/2
+        );
+    } else if(mesh.userData.type=='ball'){
+        colliderType = this.rapier.ColliderDesc.ball(
+            dimensions.x/2
+        );
+    }
+    colliderType.setRestitution(0.9);
     this.world.createCollider(colliderType, this.rigidBody);
     this.meshMap.set(mesh, this.rigidBody);
+  }
+
+  computeCuboidDimensions(mesh) {
+    mesh.geometry.computeBoundingBox();
+    const size=mesh.geometry.boundingBox.getSize(new THREE.Vector3());
+    const worldScale=mesh.getWorldScale(new THREE.Vector3());
+    size.multiply(worldScale);
+    return size;
   }
 
   loop() {
