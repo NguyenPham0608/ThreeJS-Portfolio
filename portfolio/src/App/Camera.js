@@ -25,7 +25,7 @@ export default class Camera {
       1,
       400
     );
-    this.instance.position.z = 30;
+    this.instance.position.z = 60;
   }
 
   setControls() {

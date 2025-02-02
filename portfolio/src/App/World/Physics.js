@@ -41,6 +41,7 @@ export default class Physics {
     this.rigidBody.setRotation(mesh.quaternion);
 
     mesh.geometry.computeBoundingBox();
+    // const size=mesh.geometry.boundingBox
     console.log(mesh.geometry.boundingBox);
 
     // auto compute collider dimensions

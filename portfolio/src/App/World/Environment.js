@@ -32,16 +32,16 @@ export default class Environment {
 
     // this.scene.add(this.cubeMesh);
     // this.physics.add(this.cubeMesh);
-    this.createMeshes(20);
+    this.createMeshes(200)
   }
   createMeshes(meshes){
     for (let i = 0; i < meshes; i++) {
       const geometry = new THREE.BoxGeometry(1,1,1);
       const material = new THREE.MeshStandardMaterial({ color: "#0073ff" });
       const cubeMesh = new THREE.Mesh(geometry, material);
-      cubeMesh.position.x = Math.random() - 10 + 10;
-      cubeMesh.position.y = Math.random() - 10 + 10;
-      cubeMesh.position.z = Math.random() - 10 + 10;
+      cubeMesh.position.x = Math.random() - 5 + 5;
+      cubeMesh.position.y = 10
+      cubeMesh.position.z = Math.random() - 5 + 5;
 
       cubeMesh.rotation.x = 0.3;
       cubeMesh.rotation.z = 0.3;
