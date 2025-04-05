@@ -12,7 +12,7 @@ export default class Physics {
 
 
     import("@dimforge/rapier3d").then((RAPIER) => {
-      const gravity = { x: 0, y: -19, z: 0 };
+      const gravity = { x: 0, y: -29, z: 0 };
       this.world = new RAPIER.World(gravity);
       this.rapier=RAPIER
 
@@ -54,7 +54,7 @@ export default class Physics {
             dimensions.x/2
         );
     }
-    colliderType.setRestitution(0.9);
+    colliderType.setRestitution(0.7);
     this.world.createCollider(colliderType, this.rigidBody);
     this.meshMap.set(mesh, this.rigidBody);
   }

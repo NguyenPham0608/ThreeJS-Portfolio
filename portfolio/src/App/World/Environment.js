@@ -35,24 +35,24 @@ export default class Environment {
 
     // this.scene.add(this.cubeMesh);
     // this.physics.add(this.cubeMesh);
-    this.createMeshes(150,'box')
-    this.createMeshes(100,'ball')
+    this.createMeshes(10,'box')
+    this.createMeshes(50,'ball')
 
   }
   createMeshes(meshes, type){
     if(type === "box"){
         for (let i = 0; i < meshes; i++) {
-            const geometry = new THREE.BoxGeometry(Math.random() - 2 + 2,Math.random() -2 + 2,Math.random() - 2 + 2);
+            const geometry = new THREE.BoxGeometry(getRandomArbitrary(1, 2), getRandomArbitrary(1, 2), getRandomArbitrary(1, 2));
             const material = new THREE.MeshPhysicalMaterial({
                  color: getRandomHexColor(),
                  roughness: 0.2, 
             });
             this.cubeMesh = new THREE.Mesh(geometry, material);
-            this.cubeMesh.position.x = getRandomArbitrary(-3, 3);
-            this.cubeMesh.position.y = getRandomArbitrary(10, 10);
-            this.cubeMesh.position.z = getRandomArbitrary(-3, 3);
+            this.cubeMesh.position.x = getRandomArbitrary(-8, 8);
+            this.cubeMesh.position.y = getRandomArbitrary(10, 20);
+            this.cubeMesh.position.z = getRandomArbitrary(-8, 8);
             this.cubeMesh.userData.type="box"
-            this.cubeMesh.scale.setScalar(5)  
+            this.cubeMesh.scale.setScalar(getRandomArbitrary(0.1, 4));  
       
             this.cubeMesh.rotation.x = getRandomArbitrary(-Math.PI, Math.PI);
             this.cubeMesh.rotation.y = getRandomArbitrary(-Math.PI, Math.PI);
@@ -73,11 +73,11 @@ export default class Environment {
                 opacity: 1,
                 thickness: 0.9,
                 ior: 1.5,
-                side: THREE.DoubleSide 
+                // side: THREE.DoubleSide 
             });
             this.cubeMesh = new THREE.Mesh(geometry, material);
             this.cubeMesh.position.x = getRandomArbitrary(-5, 5);
-            this.cubeMesh.position.y = getRandomArbitrary(10, 15);
+            this.cubeMesh.position.y = getRandomArbitrary(20, 35);
             this.cubeMesh.position.z = getRandomArbitrary(-5, 5);
             this.cubeMesh.scale.setScalar(getRandomArbitrary(0.5, 2));  
             this.cubeMesh.userData.type="ball"
